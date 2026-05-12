@@ -1,0 +1,56 @@
+<div class="card product-card h-100">
+  <div class="product-card__image-wrapper position-relative">
+    @if (product().badge === 'new') {
+      <span class="badge bg-success position-absolute top-0 start-0 m-2">Yeni</span>
+    } @else if (product().badge === 'sale') {
+      <span class="badge bg-danger position-absolute top-0 start-0 m-2">%{{ product().discountPercent }} İndirim</span>
+    }
+
+    <button
+      class="btn btn-light product-card__favorite position-absolute top-0 end-0 m-2 rounded-circle p-1"
+      (click)="toggleFavorite($event)">
+      <i class="bi" [class.bi-heart]="!isFavorite()" [class.bi-heart-fill]="isFavorite()"
+         [class.text-danger]="isFavorite()"></i>
+    </button>
+
+    <a [routerLink]="['/urun', product().slug]">
+      <img [src]="product().image" [alt]="product().name" class="card-img-top" loading="lazy">
+    </a>
+  </div>
+
+  <div class="card-body d-flex flex-column">
+    <a [routerLink]="['/urun', product().slug]" class="text-decoration-none text-dark">
+      <h6 class="card-title product-card__title mb-1">{{ product().name }}</h6>
+    </a>
+
+    <div class="product-card__rating mb-2">
+      @for (filled of getStars(); track $index) {
+        @if (filled) {
+          <i class="bi bi-star-fill text-warning"></i>
+        } @else {
+          <i class="bi bi-star text-muted"></i>
+        }
+      }
+      <small class="text-muted ms-1">({{ product().reviewCount }})</small>
+    </div>
+
+    <div class="product-card__price mt-auto mb-2">
+      @if (product().originalPrice) {
+        <span class="text-decoration-line-through text-muted me-2">
+          {{ product().originalPrice | number:'1.2-2' }} TL
+        </span>
+        <span class="fw-bold text-danger fs-5">
+          {{ product().price | number:'1.2-2' }} TL
+        </span>
+      } @else {
+        <span class="fw-bold fs-5">
+          {{ product().price | number:'1.2-2' }} TL
+        </span>
+      }
+    </div>
+
+    <button class="btn btn-primary btn-sm w-100">
+      <i class="bi bi-cart-plus me-1"></i> Sepete Ekle
+    </button>
+  </div>
+</div>

@@ -1,0 +1,16 @@
+@use "utils/variables" as *;
+
+.home-carousel {
+  .carousel-item > div {
+    min-height: 400px;
+  }
+}
+
+.promo-banner {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: $box-shadow-lg;
+  }
+}

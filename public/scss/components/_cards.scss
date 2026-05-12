@@ -6,3 +6,59 @@
   box-shadow: $card-shadow;
   border: none;
 }
+
+// Product card
+.product-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: $box-shadow-lg;
+  }
+
+  .product-card__image-wrapper {
+    @include aspect-ratio($product-card-ratio);
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .product-card__title {
+    @include text-truncate(2);
+    font-size: 0.9rem;
+    min-height: 2.7em;
+  }
+
+  .product-card__favorite {
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    line-height: 1;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &:hover .product-card__favorite {
+    opacity: 1;
+  }
+
+  .product-card__rating {
+    .bi {
+      font-size: 0.75rem;
+    }
+  }
+}
+
+// Category card
+.category-card {
+  transition: transform 0.2s ease;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+}

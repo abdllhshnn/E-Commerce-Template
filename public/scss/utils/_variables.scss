@@ -1,23 +1,16 @@
-// ============================================
-// 🎨 THEME VARIABLES
-// Bu dosyayı değiştirerek tüm projeyi temalayın
-// Firma A → bu dosyayı düzenle
-// Firma B → bu dosyayı düzenle
-// ============================================
-
 // ── Colors ──────────────────────────────────
-$primary:       #0d6efd;
-$secondary:     #6c757d;
-$success:       #198754;
-$info:          #0dcaf0;
-$warning:       #ffc107;
-$danger:        #dc3545;
-$light:         #f8f9fa;
-$dark:          #212529;
+$primary:       #4F46E5;
+$secondary:     #64748B;
+$success:       #10B981;
+$info:          #06B6D4;
+$warning:       #F59E0B;
+$danger:        #EF4444;
+$light:         #F8FAFC;
+$dark:          #1E293B;
 
 // ── Brand Colors ────────────────────────────
 $brand-color:   $primary;
-$brand-accent:  #ff6b35;
+$brand-accent:  #F97316;
 
 // ── Typography ──────────────────────────────
 $font-family-base:      'Inter', system-ui, -apple-system, sans-serif;
@@ -37,9 +30,9 @@ $border-radius-lg:      0.5rem;
 $border-radius-pill:    50rem;
 
 // ── Shadows ─────────────────────────────────
-$box-shadow:            0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
-$box-shadow-sm:         0 0.0625rem 0.125rem rgba(0, 0, 0, 0.075);
-$box-shadow-lg:         0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+$box-shadow:            0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.06);
+$box-shadow-sm:         0 1px 2px rgba(0, 0, 0, 0.05);
+$box-shadow-lg:         0 10px 25px rgba(0, 0, 0, 0.1), 0 4px 10px rgba(0, 0, 0, 0.06);
 
 // ── Layout ──────────────────────────────────
 $header-height:         72px;
@@ -73,5 +66,5 @@ $price-color:           $dark;
 $price-sale-color:      $danger;
 $badge-new-bg:          $success;
 $badge-sale-bg:         $danger;
-$rating-color:          #ffc107;
-$rating-empty-color:    #dee2e6;
+$rating-color:          #FBBF24;
+$rating-empty-color:    #E2E8F0;

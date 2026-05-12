@@ -5,6 +5,10 @@
 // Vendors (Bootstrap + overrides)
 @import "vendors/bootstrap";
 
+// Utils (mixins & functions — available to all subsequent files)
+@import "utils/mixins";
+@import "utils/functions";
+
 // Base
 @import "base/reset";
 @import "base/typography";
@@ -30,11 +34,4 @@
 @import "layout/sidebar";
 @import "layout/grid";
 
-// Pages
-@import "pages/home";
-@import "pages/product-list";
-@import "pages/product-detail";
-@import "pages/cart";
-@import "pages/checkout";
-@import "pages/auth";
-@import "pages/profile";
+// Pages — stiller ilgili component .scss dosyalarında yaşar
