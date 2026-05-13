@@ -3,7 +3,7 @@
 // ============================================
 
 .card {
-  box-shadow: $card-shadow;
+  box-shadow: var(--shadow-md);
   border: none;
 }
 
@@ -13,7 +13,7 @@
 
   &:hover {
     transform: translateY(-4px);
-    box-shadow: $box-shadow-lg;
+    box-shadow: var(--shadow-lg);
   }
 
   .product-card__image-wrapper {
@@ -28,7 +28,7 @@
 
   .product-card__title {
     @include text-truncate(2);
-    font-size: 0.9rem;
+    font-size: var(--font-size-base);
     min-height: 2.7em;
   }
 

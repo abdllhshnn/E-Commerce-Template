@@ -1,0 +1,61 @@
+<header class="header">
+  <div class="container">
+    <div class="header__inner">
+
+      <!-- Logo -->
+      <a routerLink="/" class="header__logo">ShopZone</a>
+
+      <!-- Nav -->
+      <nav class="header__nav">
+        <div class="header__nav-item header__nav-item--dropdown" (mouseenter)="catOpen = true" (mouseleave)="catOpen = false">
+          <button type="button" class="header__nav-link">
+            <i class="bi bi-grid"></i> Kategoriler <i class="bi bi-chevron-down header__chevron"></i>
+          </button>
+          @if (catOpen) {
+            <div class="header__dropdown">
+              @for (category of categories(); track category.id) {
+                <a [routerLink]="['/kategori', category.slug]" class="header__dropdown-item">
+                  <i class="bi {{ category.icon }}"></i> {{ category.name }}
+                </a>
+              }
+            </div>
+          }
+        </div>
+        <a routerLink="/firsatlar" class="header__nav-link header__nav-link--accent">
+          <i class="bi bi-lightning-charge-fill"></i> Fırsatlar
+        </a>
+        <a routerLink="/yeni-urunler" class="header__nav-link">Yeni Ürünler</a>
+        <a routerLink="/markalar" class="header__nav-link">Markalar</a>
+      </nav>
+
+      <!-- Aksiyonlar -->
+      <div class="header__actions">
+        <button type="button" class="header__icon-btn" (click)="searchOpen = !searchOpen">
+          <i class="bi bi-search"></i>
+        </button>
+        <a routerLink="/favoriler" class="header__icon-btn">
+          <i class="bi bi-heart"></i>
+        </a>
+        <a routerLink="/sepet" class="header__icon-btn header__icon-btn--cart">
+          <i class="bi bi-bag"></i>
+          @if (cartCount > 0) {
+            <span class="header__badge">{{ cartCount }}</span>
+          }
+        </a>
+        <a routerLink="/hesabim" class="header__login-btn">
+          <i class="bi bi-person"></i> Giriş Yap
+        </a>
+      </div>
+
+    </div>
+
+    <!-- Arama -->
+    <div class="header__search" [class.header__search--open]="searchOpen">
+      <div class="header__search-bar">
+        <i class="bi bi-search"></i>
+        <input type="text" placeholder="Ne aramıştınız?">
+        <button type="button" (click)="searchOpen = false"><i class="bi bi-x-lg"></i></button>
+      </div>
+    </div>
+  </div>
+</header>

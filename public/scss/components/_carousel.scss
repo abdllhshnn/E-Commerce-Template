@@ -11,3 +11,26 @@
     opacity: 1;
   }
 }
+
+.carousel-indicators {
+  [data-bs-target] {
+    width: 8px;
+    height: 8px;
+    border-radius: var(--radius-full);
+    border: none;
+    background-color: var(--color-white);
+    opacity: 0.4;
+    transition: opacity 0.2s, width 0.2s;
+
+    &.active {
+      opacity: 1;
+      width: 24px;
+      border-radius: var(--radius-pill);
+      background-color: var(--color-white);
+    }
+  }
+}
+
+.carousel-caption {
+  border-radius: var(--radius-xl);
+}

@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { ProductService } from '../../core/services/product.service';
+import { ProductService } from '../../../core/services/product.service';
 
 @Component({
   selector: 'app-header',
@@ -14,4 +14,6 @@ export class HeaderComponent {
 
   categories = toSignal(this.productService.getCategories(), { initialValue: [] });
   cartCount = 3;
+  searchOpen = false;
+  catOpen = false;
 }

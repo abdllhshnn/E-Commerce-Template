@@ -2,6 +2,19 @@
 // BADGES — Bootstrap Override
 // ============================================
 
+.badge {
+  font-weight: var(--font-weight-semi);
+  font-size: var(--font-size-sm);
+  border-radius: var(--radius-sm);
+  padding: 0.3em 0.6em;
+  letter-spacing: 0.3px;
+}
+
+.bg-primary {
+  background-color: var(--color-brand) !important;
+}
+
+// Product card badge (küçük boyut)
 .product-card .badge {
   font-size: 0.7rem;
   z-index: 2;

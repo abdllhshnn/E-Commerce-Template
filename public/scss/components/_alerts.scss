@@ -1,3 +1,40 @@
 // ============================================
 // ALERTS — Bootstrap Override
 // ============================================
+
+.alert {
+  border-radius: var(--radius-lg);
+  border: none;
+  border-left: 4px solid transparent;
+  font-size: var(--font-size-md);
+  padding: var(--space-3) var(--space-4);
+
+  .alert-heading {
+    font-weight: var(--font-weight-semi);
+    font-size: var(--font-size-lg);
+  }
+
+  .btn-close {
+    font-size: var(--font-size-sm);
+  }
+}
+
+.alert-primary {
+  border-left-color: var(--color-brand);
+}
+
+.alert-success {
+  border-left-color: $success;
+}
+
+.alert-danger {
+  border-left-color: $danger;
+}
+
+.alert-warning {
+  border-left-color: $warning;
+}
+
+.alert-info {
+  border-left-color: $info;
+}

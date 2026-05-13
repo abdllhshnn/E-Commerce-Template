@@ -1,3 +1,45 @@
 // ============================================
 // TABLES — Bootstrap Override
 // ============================================
+
+.table {
+  font-size: var(--font-size-md);
+  color: var(--color-text-secondary);
+  border-color: var(--color-border-light);
+
+  > thead {
+    th {
+      background-color: var(--color-surface-light);
+      color: var(--color-text-primary);
+      font-weight: var(--font-weight-semi);
+      font-size: var(--font-size-sm);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: var(--space-3) var(--space-4);
+      border-bottom-width: 2px;
+      border-bottom-color: var(--color-border-default);
+      white-space: nowrap;
+    }
+  }
+
+  > tbody {
+    td {
+      padding: var(--space-3) var(--space-4);
+      vertical-align: middle;
+    }
+  }
+}
+
+.table-hover > tbody > tr:hover > * {
+  background-color: var(--color-surface-hover);
+}
+
+// Rounded table wrapper
+.table-responsive {
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border-light);
+
+  .table {
+    margin-bottom: 0;
+  }
+}

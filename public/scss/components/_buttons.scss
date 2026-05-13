@@ -3,5 +3,84 @@
 // ============================================
 
 .btn {
-  font-weight: $btn-font-weight;
+  font-weight: var(--font-weight-medium);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-md);
+  padding: 0.5rem 1.25rem;
+  transition: background-color 0.15s, border-color 0.15s, box-shadow 0.15s, transform 0.15s;
+
+  &:active {
+    transform: scale(0.97);
+  }
+}
+
+// ── Primary ──
+.btn-primary {
+  background-color: var(--color-brand);
+  border-color: var(--color-brand);
+
+  &:hover,
+  &:focus-visible {
+    background-color: var(--color-brand-hover);
+    border-color: var(--color-brand-hover);
+  }
+
+  &:focus-visible {
+    box-shadow: 0 0 0 0.25rem rgba(79, 70, 229, 0.25);
+  }
+}
+
+.btn-outline-primary {
+  color: var(--color-brand);
+  border-color: var(--color-brand);
+
+  &:hover,
+  &:focus-visible {
+    background-color: var(--color-brand);
+    border-color: var(--color-brand);
+    color: var(--color-text-on-brand);
+  }
+
+  &:focus-visible {
+    box-shadow: 0 0 0 0.25rem rgba(79, 70, 229, 0.25);
+  }
+}
+
+// ── Dark ──
+.btn-dark {
+  background-color: var(--color-surface-dark);
+  border-color: var(--color-surface-dark);
+}
+
+.btn-outline-dark {
+  color: var(--color-text-primary);
+  border-color: var(--color-text-primary);
+
+  &:hover {
+    background-color: var(--color-surface-dark);
+    border-color: var(--color-surface-dark);
+  }
+}
+
+// ── Sizes ──
+.btn-lg {
+  font-size: var(--font-size-lg);
+  padding: 0.65rem 1.5rem;
+  border-radius: var(--radius-lg);
+}
+
+.btn-sm {
+  font-size: var(--font-size-sm);
+  padding: 0.35rem 0.85rem;
+  border-radius: var(--radius-sm);
+}
+
+// ── Link variant ──
+.btn-link {
+  color: var(--color-brand);
+  font-weight: var(--font-weight-medium);
+
+  &:hover {
+    color: var(--color-brand-hover);
+  }
 }

@@ -68,3 +68,127 @@ $badge-new-bg:          $success;
 $badge-sale-bg:         $danger;
 $rating-color:          #FBBF24;
 $rating-empty-color:    #E2E8F0;
+
+// ════════════════════════════════════════════════
+// DESIGN TOKENS (CSS Custom Properties)
+// ════════════════════════════════════════════════
+// Katman 1: SCSS değişkenler ($primary vb.) → Bootstrap'a gider, yukarıda tanımlı
+// Katman 2: Primitif paletler (--color-indigo-600 vb.)
+// Katman 3: Semantik token'lar (--color-brand vb.) → Component'ler bunu kullanır
+//
+// Rebrand için sadece Katman 3'teki pointer'ları değiştirin.
+// ════════════════════════════════════════════════
+
+:root {
+  // ── Katman 2: Primitif Renk Paleti ──────────
+  --color-indigo-50:    #eef2ff;
+  --color-indigo-100:   #e0e7ff;
+  --color-indigo-500:   #6366f1;
+  --color-indigo-600:   #{$primary};       // #4F46E5
+  --color-indigo-700:   #4338ca;
+  --color-indigo-800:   #3730a3;
+
+  --color-orange-50:    #fff7ed;
+  --color-orange-500:   #f97316;
+  --color-orange-600:   #ea580c;
+
+  --color-slate-50:     #f8fafc;
+  --color-slate-100:    #f1f5f9;
+  --color-slate-200:    #e2e8f0;
+  --color-slate-300:    #cbd5e1;
+  --color-slate-400:    #94a3b8;
+  --color-slate-500:    #64748b;
+  --color-slate-600:    #475569;
+  --color-slate-700:    #334155;
+  --color-slate-800:    #{$dark};          // #1E293B
+  --color-slate-900:    #0f172a;
+
+  --color-gray-50:      #f9fafb;
+  --color-gray-100:     #f3f4f6;
+  --color-gray-200:     #e5e7eb;
+  --color-gray-300:     #d1d5db;
+  --color-gray-400:     #9ca3af;
+  --color-gray-500:     #6b7280;
+  --color-gray-600:     #4b5563;
+
+  --color-white:        #ffffff;
+  --color-black:        #000000;
+
+  // ── Katman 3: Semantik Renk Token'ları ──────
+  // Brand
+  --color-brand:              var(--color-indigo-600);
+  --color-brand-hover:        var(--color-indigo-700);
+  --color-brand-light:        var(--color-indigo-50);
+  --color-brand-accent:       var(--color-orange-500);
+  --color-brand-accent-hover: var(--color-orange-600);
+  --color-brand-accent-light: var(--color-orange-50);
+
+  // Text
+  --color-text-primary:       var(--color-slate-800);
+  --color-text-secondary:     var(--color-gray-600);
+  --color-text-muted:         var(--color-slate-400);
+  --color-text-on-dark:       var(--color-slate-50);
+  --color-text-on-brand:      var(--color-white);
+  --color-text-placeholder:   #a0aec0;
+
+  // Surface
+  --color-surface-white:      var(--color-white);
+  --color-surface-light:      var(--color-slate-50);
+  --color-surface-dark:       var(--color-slate-800);
+  --color-surface-hover:      var(--color-indigo-50);
+
+  // Border
+  --color-border-light:       #eef2f6;
+  --color-border-default:     var(--color-gray-200);
+  --color-border-focus:       var(--color-brand);
+
+  // ── Typography ──────────────────────────────
+  --font-size-xs:   0.6rem;      // 9.6px  — badge, chevron
+  --font-size-sm:   0.75rem;     // 12px   — rating stars, small labels
+  --font-size-md:   0.875rem;    // 14px   — body-2, footer links, dropdown
+  --font-size-base: 0.9rem;      // 14.4px — nav-link, search input, product title
+  --font-size-lg:   1rem;        // 16px   — icons inline
+  --font-size-xl:   1.2rem;      // 19.2px — icon buttons
+  --font-size-2xl:  1.35rem;     // 21.6px — logo
+
+  --font-weight-normal:  400;
+  --font-weight-medium:  500;
+  --font-weight-semi:    600;
+  --font-weight-bold:    700;
+  --font-weight-black:   800;
+
+  // ── Spacing (4px grid) ──────────────────────
+  --space-0:   0;
+  --space-0-5: 2px;
+  --space-1:   4px;
+  --space-1-5: 6px;
+  --space-2:   8px;
+  --space-2-5: 10px;
+  --space-3:   12px;
+  --space-3-5: 14px;
+  --space-4:   16px;
+  --space-4-5: 18px;
+  --space-5:   20px;
+  --space-6:   24px;
+  --space-8:   32px;
+  --space-10:  40px;
+  --space-12:  48px;
+
+  // ── Border Radius ───────────────────────────
+  --radius-sm:   6px;
+  --radius-md:   8px;
+  --radius-lg:   10px;
+  --radius-xl:   12px;
+  --radius-full: 50%;
+  --radius-pill: 50rem;
+
+  // ── Shadows ─────────────────────────────────
+  --shadow-sm:       0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md:       0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.06);
+  --shadow-lg:       0 10px 25px rgba(0, 0, 0, 0.1), 0 4px 10px rgba(0, 0, 0, 0.06);
+  --shadow-dropdown: 0 8px 24px rgba(0, 0, 0, 0.08);
+
+  // ── Layout ──────────────────────────────────
+  --layout-header-height: 60px;
+  --layout-sidebar-width: #{$sidebar-width};
+}
