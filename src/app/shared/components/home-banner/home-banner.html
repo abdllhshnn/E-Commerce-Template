@@ -1,0 +1,37 @@
+@let main = mainBanner();
+
+@if (main) {
+  <section class="hero-bento">
+    <div class="container py-4">
+      <div class="hero-bento__grid" [class.hero-bento__grid--full]="!sideBanners().length">
+
+        <a class="hero-bento__card hero-bento__card--main" [routerLink]="main.buttonLink">
+          <img [src]="main.image" [alt]="main.title" class="hero-bento__img" />
+          @if (main.tag) {
+            <span class="hero-bento__tag">{{ main.tag }}</span>
+          }
+          <div class="hero-bento__content">
+            <h2 class="hero-bento__title">{{ main.title }}</h2>
+            <p class="hero-bento__subtitle">{{ main.subtitle }}</p>
+            <span class="hero-bento__btn">{{ main.buttonText }} <i class="bi bi-arrow-right"></i></span>
+          </div>
+        </a>
+
+        @for (banner of sideBanners(); track banner.id) {
+          <a class="hero-bento__card hero-bento__card--side" [routerLink]="banner.buttonLink">
+            <img [src]="banner.image" [alt]="banner.title" class="hero-bento__img" />
+            @if (banner.tag) {
+              <span class="hero-bento__tag">{{ banner.tag }}</span>
+            }
+            <div class="hero-bento__content">
+              <h3 class="hero-bento__title">{{ banner.title }}</h3>
+              <p class="hero-bento__subtitle">{{ banner.subtitle }}</p>
+              <span class="hero-bento__btn">{{ banner.buttonText }} <i class="bi bi-arrow-right"></i></span>
+            </div>
+          </a>
+        }
+
+      </div>
+    </div>
+  </section>
+}

@@ -1,4 +1,4 @@
-import { Product, Category, CarouselSlide } from '../models/product.model';
+import { Product, Category, HeroBanner, PromoBanner, Brand } from '../models/product.model';
 
 export const MOCK_PRODUCTS: Product[] = [
   {
@@ -228,32 +228,62 @@ export const MOCK_CATEGORIES: Category[] = [
   },
 ];
 
-export const MOCK_CAROUSEL_SLIDES: CarouselSlide[] = [
+export const MOCK_HERO_BANNERS: HeroBanner[] = [
   {
     id: 1,
     title: 'Yaz İndirimleri Başladı!',
     subtitle: 'Elektronik ürünlerde %50\'ye varan indirimler sizi bekliyor.',
     buttonText: 'Alışverişe Başla',
     buttonLink: '/urunler',
-    bgColor: '#4F46E5',
-    bgGradient: 'linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%)',
+    image: 'https://images.unsplash.com/photo-1607082349566-187342175e2f?w=900&h=600&q=80&fit=crop',
+    tag: '%50 İndirim',
   },
   {
     id: 2,
     title: 'Yeni Sezon Moda',
-    subtitle: 'En trend parçalar uygun fiyatlarla mağazamızda.',
-    buttonText: 'Koleksiyonu Keşfet',
+    subtitle: 'En trend parçalar uygun fiyatlarla.',
+    buttonText: 'Keşfet',
     buttonLink: '/kategori/moda',
-    bgColor: '#E11D48',
-    bgGradient: 'linear-gradient(135deg, #E11D48 0%, #F97316 100%)',
+    image: 'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=600&h=400&q=80&fit=crop',
+    tag: 'Yeni Sezon',
   },
   {
     id: 3,
-    title: 'Ücretsiz Kargo Fırsatı',
-    subtitle: '150 TL ve üzeri alışverişlerinizde kargo bedava!',
+    title: 'Ücretsiz Kargo',
+    subtitle: '150 TL üzeri alışverişlerde.',
     buttonText: 'Fırsatları Gör',
     buttonLink: '/kampanyalar',
-    bgColor: '#0D9488',
-    bgGradient: 'linear-gradient(135deg, #0D9488 0%, #06B6D4 100%)',
+    image: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&h=400&q=80&fit=crop',
+    tag: 'Kargo Bedava',
   },
+];
+
+export const MOCK_PROMO_BANNERS: PromoBanner[] = [
+  {
+    id: 1,
+    title: 'Elektronik Fırsatları',
+    subtitle: 'Teknoloji ürünlerinde kaçırılmayacak indirimler!',
+    buttonText: 'Hemen İncele',
+    buttonLink: '/kategori/elektronik',
+    gradient: 'linear-gradient(135deg, #4F46E5, #7C3AED)',
+  },
+  {
+    id: 2,
+    title: 'Moda Haftası',
+    subtitle: 'Sezon sonu büyük indirim kampanyası başladı!',
+    buttonText: 'Alışverişe Başla',
+    buttonLink: '/kategori/moda',
+    gradient: 'linear-gradient(135deg, #E11D48, #F97316)',
+  },
+];
+
+export const MOCK_BRANDS: Brand[] = [
+  { id: 1, name: 'Samsung', slug: 'samsung' },
+  { id: 2, name: 'Apple', slug: 'apple' },
+  { id: 3, name: 'Nike', slug: 'nike' },
+  { id: 4, name: 'Adidas', slug: 'adidas' },
+  { id: 5, name: 'Sony', slug: 'sony' },
+  { id: 6, name: 'LG', slug: 'lg' },
+  { id: 7, name: 'Zara', slug: 'zara' },
+  { id: 8, name: 'H&M', slug: 'hm' },
 ];

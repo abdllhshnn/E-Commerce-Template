@@ -1,3 +1,99 @@
+// ============================================
+// TOPBAR
+// ============================================
+.topbar {
+  background: var(--color-surface-dark);
+  color: var(--color-slate-300);
+  font-size: var(--font-size-xs);
+
+  &__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 36px;
+  }
+
+  &__left,
+  &__right {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+  }
+
+  &__center {
+    font-size: var(--font-size-xs);
+    color: var(--color-slate-200);
+    letter-spacing: 0.2px;
+
+    i {
+      margin-right: var(--space-1);
+    }
+
+    strong {
+      color: var(--color-white);
+      font-weight: var(--font-weight-semi);
+    }
+  }
+
+  &__link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+    color: var(--color-slate-300);
+    text-decoration: none;
+    transition: color 0.15s;
+
+    &:hover {
+      color: var(--color-white);
+    }
+  }
+
+  &__divider {
+    width: 1px;
+    height: 12px;
+    background: var(--color-slate-600);
+  }
+
+  &__social {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+  }
+
+  &__social-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    border-radius: var(--radius-sm);
+    color: var(--color-slate-400);
+    text-decoration: none;
+    font-size: var(--font-size-sm);
+    transition: color 0.15s, background 0.15s;
+
+    &:hover {
+      color: var(--color-white);
+      background: rgba(255, 255, 255, 0.1);
+    }
+  }
+
+  @media (max-width: 767px) {
+    &__left,
+    &__right {
+      display: none;
+    }
+
+    &__center {
+      width: 100%;
+      text-align: center;
+    }
+  }
+}
+
+// ============================================
+// HEADER
+// ============================================
 .header {
   background: var(--color-surface-white);
   position: sticky;

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { Product, Category, CarouselSlide } from '../models/product.model';
-import { MOCK_PRODUCTS, MOCK_CATEGORIES, MOCK_CAROUSEL_SLIDES } from '../data/mock-products';
+import { Product, Category, HeroBanner, PromoBanner, Brand } from '../models/product.model';
+import { MOCK_PRODUCTS, MOCK_CATEGORIES, MOCK_HERO_BANNERS, MOCK_PROMO_BANNERS, MOCK_BRANDS } from '../data/mock-products';
 
 @Injectable({ providedIn: 'root' })
 export class ProductService {
@@ -24,7 +24,15 @@ export class ProductService {
     return of(MOCK_CATEGORIES);
   }
 
-  getCarouselSlides(): Observable<CarouselSlide[]> {
-    return of(MOCK_CAROUSEL_SLIDES);
+  getHeroBanners(): Observable<HeroBanner[]> {
+    return of(MOCK_HERO_BANNERS);
+  }
+
+  getPromoBanners(): Observable<PromoBanner[]> {
+    return of(MOCK_PROMO_BANNERS);
+  }
+
+  getBrands(): Observable<Brand[]> {
+    return of(MOCK_BRANDS);
   }
 }

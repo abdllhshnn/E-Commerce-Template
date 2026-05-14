@@ -22,12 +22,27 @@ export interface Category {
   image: string;
 }
 
-export interface CarouselSlide {
+export interface HeroBanner {
   id: number;
   title: string;
   subtitle: string;
   buttonText: string;
   buttonLink: string;
-  bgColor: string;
-  bgGradient: string;
+  image: string;
+  tag?: string;
+}
+
+export interface PromoBanner {
+  id: number;
+  title: string;
+  subtitle: string;
+  buttonText: string;
+  buttonLink: string;
+  gradient: string;
+}
+
+export interface Brand {
+  id: number;
+  name: string;
+  slug: string;
 }

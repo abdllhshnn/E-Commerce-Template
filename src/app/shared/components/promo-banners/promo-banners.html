@@ -1,0 +1,18 @@
+<section class="py-5">
+  <div class="container">
+    <div class="row g-4">
+      @for (banner of banners(); track banner.id) {
+        <div class="col-md-6">
+          <div class="promo-banner rounded-3 p-4 p-lg-5 text-white d-flex flex-column justify-content-center"
+               [style.background]="banner.gradient">
+            <h4 class="fw-bold">{{ banner.title }}</h4>
+            <p class="mb-3">{{ banner.subtitle }}</p>
+            <div>
+              <a [routerLink]="banner.buttonLink" class="btn btn-light">{{ banner.buttonText }}</a>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</section>

@@ -1,136 +1,17 @@
-<!-- 1. Hero Carousel -->
-<section class="home-carousel">
-  <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel">
-    <div class="carousel-indicators">
-      @for (slide of slides(); track slide.id; let i = $index) {
-        <button type="button" data-bs-target="#heroCarousel" [attr.data-bs-slide-to]="i"
-                [class.active]="i === 0" [attr.aria-current]="i === 0 ? 'true' : null"
-                [attr.aria-label]="'Slide ' + (i + 1)"></button>
-      }
-    </div>
-    <div class="carousel-inner">
-      @for (slide of slides(); track slide.id; let i = $index) {
-        <div class="carousel-item" [class.active]="i === 0">
-          <div class="d-flex align-items-center justify-content-center text-white text-center"
-               [style.background]="slide.bgGradient"
-               style="min-height: 400px;">
-            <div class="px-4">
-              <h1 class="display-4 fw-bold mb-3">{{ slide.title }}</h1>
-              <p class="lead mb-4">{{ slide.subtitle }}</p>
-              <a [routerLink]="slide.buttonLink" class="btn btn-light btn-lg">{{ slide.buttonText }}</a>
-            </div>
-          </div>
-        </div>
-      }
-    </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Önceki</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Sonraki</span>
-    </button>
-  </div>
-</section>
+<app-home-banner />
 
-<!-- 2. Kategori Kartları -->
-<section class="py-5">
-  <div class="container">
-    <h4 class="fw-bold text-center mb-4">Popüler Kategoriler</h4>
-    <div class="row g-3 justify-content-center">
-      @for (category of categories(); track category.id) {
-        <div class="col-6 col-md-4 col-lg-2">
-          <a [routerLink]="['/kategori', category.slug]" class="text-decoration-none">
-            <div class="card category-card text-center border-0 p-3">
-              <div class="category-card__icon mx-auto mb-2 d-flex align-items-center justify-content-center rounded-circle bg-light"
-                   style="width: 72px; height: 72px;">
-                <i class="bi {{ category.icon }} fs-3 text-primary"></i>
-              </div>
-              <span class="small fw-medium text-dark">{{ category.name }}</span>
-            </div>
-          </a>
-        </div>
-      }
-    </div>
-  </div>
-</section>
+<app-category-grid />
 
-<!-- 3. Popüler Ürünler -->
-<section class="py-5 bg-light">
-  <div class="container">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-      <h4 class="fw-bold mb-0">Popüler Ürünler</h4>
-      <a routerLink="/urunler" class="btn btn-outline-primary btn-sm">Tümünü Gör</a>
-    </div>
-    <div class="row g-3">
-      @for (product of popularProducts(); track product.id) {
-        <div class="col-6 col-md-4 col-lg-3">
-          <app-product-card [product]="product" />
-        </div>
-      }
-    </div>
-  </div>
-</section>
+<app-product-section
+  title="Popüler Ürünler"
+  [products]="popularProducts()"
+  bgClass="bg-light" />
 
-<!-- 4. Kampanya Banner -->
-<section class="py-5">
-  <div class="container">
-    <div class="row g-4">
-      <div class="col-md-6">
-        <div class="promo-banner rounded-3 p-4 p-lg-5 text-white d-flex flex-column justify-content-center"
-             style="background: linear-gradient(135deg, #4F46E5, #7C3AED); min-height: 200px;">
-          <h4 class="fw-bold">Elektronik Fırsatları</h4>
-          <p class="mb-3">Teknoloji ürünlerinde kaçırılmayacak indirimler!</p>
-          <div>
-            <a routerLink="/kategori/elektronik" class="btn btn-light">Hemen İncele</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-6">
-        <div class="promo-banner rounded-3 p-4 p-lg-5 text-white d-flex flex-column justify-content-center"
-             style="background: linear-gradient(135deg, #E11D48, #F97316); min-height: 200px;">
-          <h4 class="fw-bold">Moda Haftası</h4>
-          <p class="mb-3">Sezon sonu büyük indirim kampanyası başladı!</p>
-          <div>
-            <a routerLink="/kategori/moda" class="btn btn-light">Alışverişe Başla</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+<app-promo-banners />
 
-<!-- 5. Yeni Ürünler -->
-<section class="py-5 bg-light">
-  <div class="container">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-      <h4 class="fw-bold mb-0">Yeni Ürünler</h4>
-      <a routerLink="/urunler" class="btn btn-outline-primary btn-sm">Tümünü Gör</a>
-    </div>
-    <div class="row g-3">
-      @for (product of newProducts(); track product.id) {
-        <div class="col-6 col-md-4 col-lg-3">
-          <app-product-card [product]="product" />
-        </div>
-      }
-    </div>
-  </div>
-</section>
+<app-product-section
+  title="Yeni Ürünler"
+  [products]="newProducts()"
+  bgClass="bg-light" />
 
-<!-- 6. Marka Logoları -->
-<section class="py-5">
-  <div class="container">
-    <h6 class="text-center text-muted mb-4">Markalarımız</h6>
-    <div class="d-flex justify-content-center align-items-center flex-wrap gap-4">
-      <span class="fs-5 fw-bold text-muted opacity-50">Samsung</span>
-      <span class="fs-5 fw-bold text-muted opacity-50">Apple</span>
-      <span class="fs-5 fw-bold text-muted opacity-50">Nike</span>
-      <span class="fs-5 fw-bold text-muted opacity-50">Adidas</span>
-      <span class="fs-5 fw-bold text-muted opacity-50">Sony</span>
-      <span class="fs-5 fw-bold text-muted opacity-50">LG</span>
-      <span class="fs-5 fw-bold text-muted opacity-50">Zara</span>
-      <span class="fs-5 fw-bold text-muted opacity-50">H&M</span>
-    </div>
-  </div>
-</section>
+<app-brand-logos />

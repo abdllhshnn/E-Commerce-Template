@@ -1,0 +1,12 @@
+<section class="py-5">
+  <div class="container">
+    <h6 class="text-center text-muted mb-4">Markalarımız</h6>
+    <div class="d-flex justify-content-center align-items-center flex-wrap gap-4">
+      @for (brand of brands(); track brand.id) {
+        <a [routerLink]="['/marka', brand.slug]" class="brand-logos__item">
+          {{ brand.name }}
+        </a>
+      }
+    </div>
+  </div>
+</section>
