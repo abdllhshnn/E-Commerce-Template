@@ -1,0 +1,183 @@
+<h1 class="auth__title">Kayıt Ol</h1>
+<p class="auth__desc">Bilgilerinizi girerek ücretsiz hesap oluşturun.</p>
+
+@if (error()) {
+  <div class="auth__alert auth__alert--error">
+    <i class="bi bi-exclamation-circle"></i>
+    {{ error() }}
+  </div>
+}
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+  <!-- Ad - Soyad -->
+  <div class="auth__field-row">
+    <div class="auth__field">
+      <label for="firstName" class="form-label">Ad</label>
+      <div class="auth__input-icon">
+        <i class="bi bi-person"></i>
+        <input
+          id="firstName"
+          type="text"
+          class="form-control"
+          formControlName="firstName"
+          placeholder="Adınız"
+          [class.is-invalid]="form.controls.firstName.touched && form.controls.firstName.invalid"
+        />
+      </div>
+      @if (form.controls.firstName.touched && form.controls.firstName.errors?.['required']) {
+        <small class="auth__error">Ad gerekli.</small>
+      }
+    </div>
+
+    <div class="auth__field">
+      <label for="lastName" class="form-label">Soyad</label>
+      <div class="auth__input-icon">
+        <i class="bi bi-person"></i>
+        <input
+          id="lastName"
+          type="text"
+          class="form-control"
+          formControlName="lastName"
+          placeholder="Soyadınız"
+          [class.is-invalid]="form.controls.lastName.touched && form.controls.lastName.invalid"
+        />
+      </div>
+      @if (form.controls.lastName.touched && form.controls.lastName.errors?.['required']) {
+        <small class="auth__error">Soyad gerekli.</small>
+      }
+    </div>
+  </div>
+
+  <!-- E-posta -->
+  <div class="auth__field">
+    <label for="email" class="form-label">E-posta</label>
+    <div class="auth__input-icon">
+      <i class="bi bi-envelope"></i>
+      <input
+        id="email"
+        type="email"
+        class="form-control"
+        formControlName="email"
+        placeholder="ornek@email.com"
+        [class.is-invalid]="form.controls.email.touched && form.controls.email.invalid"
+      />
+    </div>
+    @if (form.controls.email.touched && form.controls.email.errors) {
+      <small class="auth__error">
+        @if (form.controls.email.errors['required']) {
+          E-posta adresi gerekli.
+        } @else if (form.controls.email.errors['email']) {
+          Geçerli bir e-posta adresi girin.
+        }
+      </small>
+    }
+  </div>
+
+  <!-- Telefon -->
+  <div class="auth__field">
+    <label for="phone" class="form-label">Telefon</label>
+    <div class="auth__input-icon">
+      <i class="bi bi-phone"></i>
+      <input
+        id="phone"
+        type="tel"
+        class="form-control"
+        formControlName="phone"
+        placeholder="05XX XXX XX XX"
+        [class.is-invalid]="form.controls.phone.touched && form.controls.phone.invalid"
+      />
+    </div>
+    @if (form.controls.phone.touched && form.controls.phone.errors) {
+      <small class="auth__error">
+        @if (form.controls.phone.errors['required']) {
+          Telefon numarası gerekli.
+        } @else if (form.controls.phone.errors['pattern']) {
+          Geçerli bir telefon numarası girin (05XXXXXXXXX).
+        }
+      </small>
+    }
+  </div>
+
+  <!-- Şifre -->
+  <div class="auth__field">
+    <label for="password" class="form-label">Şifre</label>
+    <div class="auth__input-icon">
+      <i class="bi bi-lock"></i>
+      <input
+        id="password"
+        [type]="showPassword() ? 'text' : 'password'"
+        class="form-control"
+        formControlName="password"
+        placeholder="En az 6 karakter"
+        [class.is-invalid]="form.controls.password.touched && form.controls.password.invalid"
+      />
+      <button type="button" class="auth__toggle-pw" (click)="togglePassword()">
+        <i class="bi" [class.bi-eye]="!showPassword()" [class.bi-eye-slash]="showPassword()"></i>
+      </button>
+    </div>
+    @if (form.controls.password.touched && form.controls.password.errors) {
+      <small class="auth__error">
+        @if (form.controls.password.errors['required']) {
+          Şifre gerekli.
+        } @else if (form.controls.password.errors['minlength']) {
+          Şifre en az 6 karakter olmalı.
+        }
+      </small>
+    }
+  </div>
+
+  <!-- Şifre Tekrar -->
+  <div class="auth__field">
+    <label for="confirmPassword" class="form-label">Şifre Tekrar</label>
+    <div class="auth__input-icon">
+      <i class="bi bi-lock"></i>
+      <input
+        id="confirmPassword"
+        [type]="showConfirmPassword() ? 'text' : 'password'"
+        class="form-control"
+        formControlName="confirmPassword"
+        placeholder="Şifrenizi tekrar girin"
+        [class.is-invalid]="form.controls.confirmPassword.touched && form.controls.confirmPassword.invalid"
+      />
+      <button type="button" class="auth__toggle-pw" (click)="toggleConfirmPassword()">
+        <i class="bi" [class.bi-eye]="!showConfirmPassword()" [class.bi-eye-slash]="showConfirmPassword()"></i>
+      </button>
+    </div>
+    @if (form.controls.confirmPassword.touched && form.controls.confirmPassword.errors) {
+      <small class="auth__error">
+        @if (form.controls.confirmPassword.errors['required']) {
+          Şifre tekrarı gerekli.
+        } @else if (form.controls.confirmPassword.errors['passwordMismatch']) {
+          Şifreler eşleşmiyor.
+        }
+      </small>
+    }
+  </div>
+
+  <!-- Sözleşme -->
+  <div class="auth__field">
+    <div class="form-check">
+      <input type="checkbox" class="form-check-input" id="terms" formControlName="terms"
+        [class.is-invalid]="form.controls.terms.touched && form.controls.terms.invalid" />
+      <label class="form-check-label" for="terms">
+        <a href="#" class="auth__link" (click)="$event.preventDefault()">Üyelik Sözleşmesi</a>'ni okudum ve kabul ediyorum.
+      </label>
+    </div>
+    @if (form.controls.terms.touched && form.controls.terms.errors?.['required']) {
+      <small class="auth__error">Sözleşmeyi kabul etmelisiniz.</small>
+    }
+  </div>
+
+  <!-- Submit -->
+  <button type="submit" class="btn btn-primary auth__submit" [disabled]="loading()">
+    @if (loading()) {
+      <span class="spinner-border spinner-border-sm me-2"></span>
+    }
+    Kayıt Ol
+  </button>
+</form>
+
+<p class="auth__footer-text">
+  Zaten hesabınız var mı?
+  <a routerLink="/giris" class="auth__link">Giriş Yap</a>
+</p>

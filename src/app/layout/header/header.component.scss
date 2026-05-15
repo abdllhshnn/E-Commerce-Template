@@ -286,6 +286,76 @@
     }
   }
 
+  // ── User Menu ──
+  &__user-menu {
+    position: relative;
+    margin-left: var(--space-1);
+  }
+
+  &__user-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-1) var(--space-3) var(--space-1) var(--space-1);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-border-default);
+    background: var(--color-surface-white);
+    cursor: pointer;
+    transition: border-color 0.15s, background-color 0.15s;
+
+    &:hover {
+      border-color: var(--color-brand);
+      background: var(--color-surface-hover);
+    }
+  }
+
+  &__user-avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: var(--radius-full);
+    background: var(--color-brand);
+    color: var(--color-text-on-brand);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semi);
+    line-height: 1;
+  }
+
+  &__user-name {
+    font-size: var(--font-size-md);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-primary);
+  }
+
+  &__dropdown--right {
+    left: auto;
+    right: 0;
+  }
+
+  &__dropdown-divider {
+    height: 1px;
+    background: var(--color-border-light);
+    margin: var(--space-1) var(--space-2);
+  }
+
+  &__dropdown-item--danger {
+    width: 100%;
+    border: none;
+    background: none;
+    cursor: pointer;
+
+    &:hover {
+      color: #dc3545 !important;
+      background: #fef2f2;
+
+      i {
+        opacity: 1;
+      }
+    }
+  }
+
   // ── Arama ──
   &__search {
     overflow: hidden;
@@ -370,6 +440,10 @@
     }
 
     &__login-btn span {
+      display: none;
+    }
+
+    &__user-name {
       display: none;
     }
   }

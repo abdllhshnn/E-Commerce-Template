@@ -77,9 +77,40 @@
             <span class="header__badge">{{ cartCount }}</span>
           }
         </a>
-        <a routerLink="/hesabim" class="header__login-btn">
-          <i class="bi bi-person"></i> Giriş Yap
-        </a>
+
+        @if (authState().isAuthenticated) {
+          <!-- Kullanıcı menüsü -->
+          <div class="header__user-menu" (mouseenter)="userMenuOpen = true" (mouseleave)="userMenuOpen = false">
+            <button type="button" class="header__user-btn">
+              <span class="header__user-avatar">
+                {{ authState().user?.firstName?.charAt(0) }}{{ authState().user?.lastName?.charAt(0) }}
+              </span>
+              <span class="header__user-name">{{ authState().user?.firstName }}</span>
+              <i class="bi bi-chevron-down header__chevron"></i>
+            </button>
+            @if (userMenuOpen) {
+              <div class="header__dropdown header__dropdown--right">
+                <a routerLink="/hesabim" class="header__dropdown-item">
+                  <i class="bi bi-person"></i> Hesabım
+                </a>
+                <a routerLink="/siparislerim" class="header__dropdown-item">
+                  <i class="bi bi-box-seam"></i> Siparişlerim
+                </a>
+                <a routerLink="/favoriler" class="header__dropdown-item">
+                  <i class="bi bi-heart"></i> Favorilerim
+                </a>
+                <div class="header__dropdown-divider"></div>
+                <button type="button" class="header__dropdown-item header__dropdown-item--danger" (click)="logout()">
+                  <i class="bi bi-box-arrow-right"></i> Çıkış Yap
+                </button>
+              </div>
+            }
+          </div>
+        } @else {
+          <a routerLink="/giris" class="header__login-btn">
+            <i class="bi bi-person"></i> Giriş Yap
+          </a>
+        }
       </div>
 
     </div>

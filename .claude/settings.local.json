@@ -2,7 +2,9 @@
   "permissions": {
     "allow": [
       "Bash(npx ng generate component:*)",
-      "Bash(npx ng generate:*)"
+      "Bash(npx ng generate:*)",
+      "Bash(npx ng build:*)",
+      "Bash(powershell -Command \"Get-Content ''C:\\\\Users\\\\abdll\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\C--projeler-e-commerce-template\\\\tasks\\\\b7b8784.output'' | Select-Object -Last 20\")"
     ]
   }
 }
