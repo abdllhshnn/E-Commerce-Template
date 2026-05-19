@@ -1,0 +1,150 @@
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h4 class="mb-0 fw-bold">Adreslerim</h4>
+  @if (!showForm()) {
+    <button type="button" class="btn btn-primary btn-sm" (click)="openAddForm()">
+      <i class="bi bi-plus-lg me-1"></i> Yeni Adres Ekle
+    </button>
+  }
+</div>
+
+<!-- Address Form -->
+@if (showForm()) {
+  <div class="addresses__form-card mb-4">
+    <h6 class="fw-bold mb-3">{{ editingId() !== null ? 'Adresi Düzenle' : 'Yeni Adres Ekle' }}</h6>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+      <div class="row g-3">
+        <!-- Title -->
+        <div class="col-md-6">
+          <label for="title" class="form-label">Adres Başlığı</label>
+          <input id="title" type="text" class="form-control" formControlName="title" placeholder="Ev, İş vb."
+            [class.is-invalid]="form.controls.title.touched && form.controls.title.invalid" />
+          @if (form.controls.title.touched && form.controls.title.errors?.['required']) {
+            <small class="text-danger">Adres başlığı gerekli.</small>
+          }
+        </div>
+
+        <!-- Full Name -->
+        <div class="col-md-6">
+          <label for="fullName" class="form-label">Ad Soyad</label>
+          <input id="fullName" type="text" class="form-control" formControlName="fullName" placeholder="Adınız Soyadınız"
+            [class.is-invalid]="form.controls.fullName.touched && form.controls.fullName.invalid" />
+          @if (form.controls.fullName.touched && form.controls.fullName.errors?.['required']) {
+            <small class="text-danger">Ad soyad gerekli.</small>
+          }
+        </div>
+
+        <!-- Phone -->
+        <div class="col-md-6">
+          <label for="phone" class="form-label">Telefon</label>
+          <input id="phone" type="tel" class="form-control" formControlName="phone" placeholder="05XXXXXXXXX"
+            [class.is-invalid]="form.controls.phone.touched && form.controls.phone.invalid" />
+          @if (form.controls.phone.touched && form.controls.phone.errors) {
+            <small class="text-danger">
+              @if (form.controls.phone.errors['required']) {
+                Telefon gerekli.
+              } @else if (form.controls.phone.errors['pattern']) {
+                Geçerli bir telefon numarası girin.
+              }
+            </small>
+          }
+        </div>
+
+        <!-- City -->
+        <div class="col-md-3">
+          <label for="city" class="form-label">İl</label>
+          <input id="city" type="text" class="form-control" formControlName="city" placeholder="İstanbul"
+            [class.is-invalid]="form.controls.city.touched && form.controls.city.invalid" />
+          @if (form.controls.city.touched && form.controls.city.errors?.['required']) {
+            <small class="text-danger">İl gerekli.</small>
+          }
+        </div>
+
+        <!-- District -->
+        <div class="col-md-3">
+          <label for="district" class="form-label">İlçe</label>
+          <input id="district" type="text" class="form-control" formControlName="district" placeholder="Kadıköy"
+            [class.is-invalid]="form.controls.district.touched && form.controls.district.invalid" />
+          @if (form.controls.district.touched && form.controls.district.errors?.['required']) {
+            <small class="text-danger">İlçe gerekli.</small>
+          }
+        </div>
+
+        <!-- Address Line -->
+        <div class="col-12">
+          <label for="addressLine" class="form-label">Adres</label>
+          <textarea id="addressLine" class="form-control" formControlName="addressLine" rows="2"
+            placeholder="Mahalle, cadde, sokak, bina no, daire no"
+            [class.is-invalid]="form.controls.addressLine.touched && form.controls.addressLine.invalid"></textarea>
+          @if (form.controls.addressLine.touched && form.controls.addressLine.errors?.['required']) {
+            <small class="text-danger">Adres gerekli.</small>
+          }
+        </div>
+
+        <!-- Zip Code -->
+        <div class="col-md-4">
+          <label for="zipCode" class="form-label">Posta Kodu</label>
+          <input id="zipCode" type="text" class="form-control" formControlName="zipCode" placeholder="34000"
+            [class.is-invalid]="form.controls.zipCode.touched && form.controls.zipCode.invalid" />
+          @if (form.controls.zipCode.touched && form.controls.zipCode.errors?.['required']) {
+            <small class="text-danger">Posta kodu gerekli.</small>
+          }
+        </div>
+
+        <!-- Is Default -->
+        <div class="col-md-8 d-flex align-items-end">
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="isDefault" formControlName="isDefault" />
+            <label class="form-check-label" for="isDefault">Varsayılan adres olarak ayarla</label>
+          </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="col-12 d-flex gap-2">
+          <button type="submit" class="btn btn-primary">Kaydet</button>
+          <button type="button" class="btn btn-outline-secondary" (click)="cancelForm()">İptal</button>
+        </div>
+      </div>
+    </form>
+  </div>
+}
+
+<!-- Address Cards -->
+@if (addresses().length > 0) {
+  <div class="row g-3">
+    @for (address of addresses(); track address.id) {
+      <div class="col-md-6">
+        <div class="addresses__card">
+          <div class="addresses__card-header">
+            <div class="d-flex align-items-center gap-2">
+              <h6 class="mb-0 fw-bold">{{ address.title }}</h6>
+              @if (address.isDefault) {
+                <span class="badge bg-primary">Varsayılan</span>
+              }
+            </div>
+            <div class="d-flex gap-1">
+              <button type="button" class="btn btn-sm btn-outline-secondary" (click)="openEditForm(address)">
+                <i class="bi bi-pencil"></i>
+              </button>
+              <button type="button" class="btn btn-sm btn-outline-danger" (click)="deleteAddress(address.id)">
+                <i class="bi bi-trash"></i>
+              </button>
+            </div>
+          </div>
+          <div class="addresses__card-body">
+            <p class="mb-1 fw-medium">{{ address.fullName }}</p>
+            <p class="mb-1 text-muted small">{{ address.addressLine }}</p>
+            <p class="mb-1 text-muted small">{{ address.district }}, {{ address.city }} {{ address.zipCode }}</p>
+            <p class="mb-0 text-muted small"><i class="bi bi-telephone me-1"></i>{{ address.phone }}</p>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+} @else {
+  @if (!showForm()) {
+    <div class="text-center py-5">
+      <i class="bi bi-geo-alt text-muted" style="font-size: 3rem;"></i>
+      <p class="text-muted mt-3">Henüz adres eklenmemiş.</p>
+    </div>
+  }
+}

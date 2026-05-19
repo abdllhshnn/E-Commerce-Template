@@ -8,7 +8,7 @@ const authLayout = () =>
 
 export const authRoutes: Routes = [
   {
-    path: 'giris',
+    path: 'login',
     canActivate: [guestGuard],
     loadComponent: authLayout,
     children: [
@@ -20,7 +20,7 @@ export const authRoutes: Routes = [
     ],
   },
   {
-    path: 'kayit',
+    path: 'register',
     canActivate: [guestGuard],
     loadComponent: authLayout,
     children: [
@@ -34,7 +34,7 @@ export const authRoutes: Routes = [
     ],
   },
   {
-    path: 'sifremi-unuttum',
+    path: 'forgot-password',
     canActivate: [guestGuard],
     loadComponent: authLayout,
     children: [
@@ -48,7 +48,7 @@ export const authRoutes: Routes = [
     ],
   },
   {
-    path: 'sifre-sifirla',
+    path: 'reset-password',
     loadComponent: authLayout,
     children: [
       {

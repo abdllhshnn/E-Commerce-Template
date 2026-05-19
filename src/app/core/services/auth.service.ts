@@ -110,7 +110,7 @@ export class AuthService {
 
     // Mock: generate a fake token
     const token = btoa(`${user.email}:${Date.now()}`);
-    console.log(`[Mock] Şifre sıfırlama linki: /sifre-sifirla?token=${token}`);
+    console.log(`[Mock] Şifre sıfırlama linki: /reset-password?token=${token}`);
 
     return of({
       success: true,

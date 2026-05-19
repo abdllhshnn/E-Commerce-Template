@@ -35,7 +35,7 @@
         <ul class="list-unstyled">
           @for (category of categories(); track category.id) {
             <li class="mb-2">
-              <a [routerLink]="['/kategori', category.slug]" class="footer-link text-secondary text-decoration-none">
+              <a [routerLink]="['/category', category.slug]" class="footer-link text-secondary text-decoration-none">
                 {{ category.name }}
               </a>
             </li>

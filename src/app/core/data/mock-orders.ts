@@ -1,0 +1,103 @@
+import { Order } from '../models/order.model';
+
+export const MOCK_ORDERS: Order[] = [
+  {
+    id: 'ORD-2024001',
+    date: '2024-12-15',
+    status: 'delivered',
+    items: [
+      {
+        productId: 1,
+        name: 'Kablosuz Bluetooth Kulaklık',
+        image: 'https://placehold.co/80x80/6366F1/white?text=Kulaklık',
+        quantity: 1,
+        price: 299.99,
+      },
+      {
+        productId: 7,
+        name: 'Anti-Aging Yüz Serumu',
+        image: 'https://placehold.co/80x80/F59E0B/white?text=Serum',
+        quantity: 2,
+        price: 189.90,
+      },
+    ],
+    subtotal: 679.79,
+    shippingCost: 0,
+    total: 679.79,
+    shippingAddress: 'Atatürk Mah. Cumhuriyet Cad. No:42 D:5, Kadıköy, İstanbul',
+    trackingNumber: 'TR123456789',
+    timeline: [
+      { status: 'pending', label: 'Sipariş Alındı', date: '2024-12-15 10:30', completed: true },
+      { status: 'confirmed', label: 'Sipariş Onaylandı', date: '2024-12-15 11:00', completed: true },
+      { status: 'preparing', label: 'Hazırlanıyor', date: '2024-12-15 14:00', completed: true },
+      { status: 'shipped', label: 'Kargoya Verildi', date: '2024-12-16 09:00', completed: true },
+      { status: 'delivered', label: 'Teslim Edildi', date: '2024-12-18 14:30', completed: true },
+    ],
+  },
+  {
+    id: 'ORD-2024002',
+    date: '2024-12-20',
+    status: 'shipped',
+    items: [
+      {
+        productId: 2,
+        name: 'Akıllı Saat Pro Max',
+        image: 'https://placehold.co/80x80/0EA5E9/white?text=Saat',
+        quantity: 1,
+        price: 1299.00,
+      },
+    ],
+    subtotal: 1299.00,
+    shippingCost: 0,
+    total: 1299.00,
+    shippingAddress: 'Levent Mah. Büyükdere Cad. No:185 K:12, Şişli, İstanbul',
+    trackingNumber: 'TR987654321',
+    timeline: [
+      { status: 'pending', label: 'Sipariş Alındı', date: '2024-12-20 16:45', completed: true },
+      { status: 'confirmed', label: 'Sipariş Onaylandı', date: '2024-12-20 17:00', completed: true },
+      { status: 'preparing', label: 'Hazırlanıyor', date: '2024-12-21 09:00', completed: true },
+      { status: 'shipped', label: 'Kargoya Verildi', date: '2024-12-22 10:30', completed: true },
+      { status: 'delivered', label: 'Teslim Edildi', date: null, completed: false },
+    ],
+  },
+  {
+    id: 'ORD-2024003',
+    date: '2024-12-22',
+    status: 'preparing',
+    items: [
+      {
+        productId: 4,
+        name: 'Erkek Spor Ayakkabı',
+        image: 'https://placehold.co/80x80/8B5CF6/white?text=Ayakkabı',
+        quantity: 1,
+        price: 399.00,
+      },
+      {
+        productId: 9,
+        name: 'Yoga Matı Premium',
+        image: 'https://placehold.co/80x80/10B981/white?text=Yoga',
+        quantity: 1,
+        price: 179.90,
+      },
+      {
+        productId: 11,
+        name: 'Bestseller Roman Seti',
+        image: 'https://placehold.co/80x80/F97316/white?text=Roman',
+        quantity: 1,
+        price: 149.90,
+      },
+    ],
+    subtotal: 728.80,
+    shippingCost: 14.90,
+    total: 743.70,
+    shippingAddress: 'Atatürk Mah. Cumhuriyet Cad. No:42 D:5, Kadıköy, İstanbul',
+    trackingNumber: null,
+    timeline: [
+      { status: 'pending', label: 'Sipariş Alındı', date: '2024-12-22 20:15', completed: true },
+      { status: 'confirmed', label: 'Sipariş Onaylandı', date: '2024-12-23 09:00', completed: true },
+      { status: 'preparing', label: 'Hazırlanıyor', date: '2024-12-23 11:00', completed: true },
+      { status: 'shipped', label: 'Kargoya Verildi', date: null, completed: false },
+      { status: 'delivered', label: 'Teslim Edildi', date: null, completed: false },
+    ],
+  },
+];

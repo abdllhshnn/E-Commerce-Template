@@ -1,0 +1,47 @@
+<h4 class="mb-3 fw-bold">Siparişlerim</h4>
+
+<!-- Filters -->
+<div class="orders__filters mb-4">
+  @for (filter of filters; track filter.value) {
+    <button
+      type="button"
+      class="orders__filter-btn"
+      [class.orders__filter-btn--active]="activeFilter() === filter.value"
+      (click)="setFilter(filter.value)">
+      {{ filter.label }}
+    </button>
+  }
+</div>
+
+<!-- Order List -->
+@if (filteredOrders().length > 0) {
+  <div class="d-flex flex-column gap-3">
+    @for (order of filteredOrders(); track order.id) {
+      <div class="orders__card">
+        <div class="orders__card-header">
+          <div>
+            <span class="fw-medium">{{ order.id }}</span>
+            <span class="text-muted ms-3">{{ order.date | date:'dd.MM.yyyy' }}</span>
+          </div>
+          <span class="badge {{ getStatusClass(order.status) }}">
+            {{ getStatusLabel(order.status) }}
+          </span>
+        </div>
+        <div class="orders__card-body">
+          <div class="orders__card-info">
+            <span>{{ order.items.length }} ürün</span>
+            <span class="fw-bold">{{ order.total | number:'1.2-2' }} TL</span>
+          </div>
+          <a [routerLink]="['/account/orders', order.id]" class="btn btn-sm btn-outline-primary">
+            Detay <i class="bi bi-chevron-right"></i>
+          </a>
+        </div>
+      </div>
+    }
+  </div>
+} @else {
+  <div class="text-center py-5">
+    <i class="bi bi-box-seam text-muted" style="font-size: 3rem;"></i>
+    <p class="text-muted mt-3">Bu filtreye uygun sipariş bulunamadı.</p>
+  </div>
+}

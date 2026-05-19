@@ -1,0 +1,62 @@
+<h4 class="dashboard__title">Hoş geldin, {{ firstName }}!</h4>
+
+<!-- Quick Links -->
+<div class="row g-3 mb-4">
+  @for (link of quickLinks; track link.route) {
+    <div class="col-6 col-md-3">
+      <a [routerLink]="link.route" class="dashboard__card">
+        <div class="dashboard__card-icon" [style.background]="link.color">
+          <i class="bi {{ link.icon }}"></i>
+        </div>
+        <span class="dashboard__card-label">{{ link.label }}</span>
+      </a>
+    </div>
+  }
+</div>
+
+<!-- Recent Orders -->
+<div class="dashboard__section">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h5 class="mb-0">Son Siparişler</h5>
+    <a routerLink="/account/orders" class="btn btn-sm btn-outline-primary">Tümünü Gör</a>
+  </div>
+
+  @if (recentOrders().length > 0) {
+    <div class="table-responsive">
+      <table class="table table-hover align-middle mb-0">
+        <thead>
+          <tr>
+            <th>Sipariş No</th>
+            <th>Tarih</th>
+            <th>Durum</th>
+            <th>Ürün</th>
+            <th class="text-end">Toplam</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (order of recentOrders(); track order.id) {
+            <tr>
+              <td class="fw-medium">{{ order.id }}</td>
+              <td>{{ order.date | date:'dd.MM.yyyy' }}</td>
+              <td>
+                <span class="badge {{ getStatusClass(order.status) }}">
+                  {{ getStatusLabel(order.status) }}
+                </span>
+              </td>
+              <td>{{ order.items.length }} ürün</td>
+              <td class="text-end fw-medium">{{ order.total | number:'1.2-2' }} TL</td>
+              <td class="text-end">
+                <a [routerLink]="['/account/orders', order.id]" class="btn btn-sm btn-outline-secondary">
+                  Detay
+                </a>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  } @else {
+    <p class="text-muted">Henüz siparişiniz bulunmuyor.</p>
+  }
+</div>

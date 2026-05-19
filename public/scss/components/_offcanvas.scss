@@ -1,0 +1,40 @@
+// ============================================
+// OFFCANVAS — Bootstrap Override
+// ============================================
+
+.offcanvas {
+  border: none;
+  box-shadow: var(--shadow-lg);
+}
+
+.offcanvas-header {
+  padding: var(--space-4) var(--space-6);
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.offcanvas-title {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semi);
+  color: var(--color-text-primary);
+}
+
+.offcanvas-body {
+  padding: var(--space-6);
+  font-size: var(--font-size-md);
+  color: var(--color-text-secondary);
+}
+
+.offcanvas-backdrop.show {
+  opacity: 0.4;
+}
+
+// ── Start / End width ──
+.offcanvas-start,
+.offcanvas-end {
+  width: 320px;
+}
+
+// ── Cart drawer (e-commerce specific) ──
+.offcanvas-cart {
+  width: 380px;
+}

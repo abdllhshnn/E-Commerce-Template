@@ -16,16 +16,16 @@ export class FooterComponent {
   currentYear = new Date().getFullYear();
 
   corporateLinks = [
-    { label: 'Hakkımızda', route: '/hakkimizda' },
-    { label: 'Kariyer', route: '/kariyer' },
+    { label: 'Hakkımızda', route: '/about' },
+    { label: 'Kariyer', route: '/careers' },
     { label: 'Blog', route: '/blog' },
-    { label: 'Basın', route: '/basin' },
+    { label: 'Basın', route: '/press' },
   ];
 
   customerLinks = [
-    { label: 'Sıkça Sorulan Sorular', route: '/sss' },
-    { label: 'İade ve Değişim', route: '/iade' },
-    { label: 'Kargo Bilgileri', route: '/kargo' },
-    { label: 'Gizlilik Politikası', route: '/gizlilik' },
+    { label: 'Sıkça Sorulan Sorular', route: '/faq' },
+    { label: 'İade ve Değişim', route: '/returns' },
+    { label: 'Kargo Bilgileri', route: '/shipping' },
+    { label: 'Gizlilik Politikası', route: '/privacy' },
   ];
 }

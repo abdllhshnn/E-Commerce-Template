@@ -1,0 +1,79 @@
+// ============================================
+// LIST GROUP — Bootstrap Override
+// ============================================
+
+.list-group {
+  border-radius: var(--radius-lg);
+}
+
+.list-group-item {
+  border-color: var(--color-border-light);
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-md);
+  padding: var(--space-3) var(--space-4);
+  transition: background-color 0.15s, color 0.15s;
+
+  &:first-child {
+    border-top-left-radius: var(--radius-lg);
+    border-top-right-radius: var(--radius-lg);
+  }
+
+  &:last-child {
+    border-bottom-left-radius: var(--radius-lg);
+    border-bottom-right-radius: var(--radius-lg);
+  }
+}
+
+// ── Actionable items ──
+.list-group-item-action {
+  &:hover,
+  &:focus {
+    background-color: var(--color-surface-hover);
+    color: var(--color-brand);
+  }
+
+  &:active {
+    background-color: var(--color-brand-light);
+    color: var(--color-brand);
+  }
+}
+
+// ── Active state ──
+.list-group-item.active {
+  background-color: var(--color-brand);
+  border-color: var(--color-brand);
+  color: var(--color-text-on-brand);
+}
+
+// ── Disabled ──
+.list-group-item.disabled {
+  color: var(--color-text-muted);
+  background-color: var(--color-surface-light);
+}
+
+// ── Flush variant ──
+.list-group-flush {
+  .list-group-item {
+    border-left: 0;
+    border-right: 0;
+    border-radius: 0;
+  }
+}
+
+// ── Contextual variants ──
+.list-group-item-primary {
+  background-color: var(--color-brand-light);
+  color: var(--color-brand);
+}
+
+.list-group-item-success {
+  color: darken($success, 10%);
+}
+
+.list-group-item-danger {
+  color: darken($danger, 10%);
+}
+
+.list-group-item-warning {
+  color: darken($warning, 10%);
+}

@@ -1,0 +1,36 @@
+// ============================================
+// TOOLTIPS — Bootstrap Override
+// ============================================
+
+.tooltip {
+  font-size: var(--font-size-sm);
+  font-family: inherit;
+}
+
+.tooltip-inner {
+  background-color: var(--color-surface-dark);
+  color: var(--color-text-on-dark);
+  border-radius: var(--radius-md);
+  padding: var(--space-1-5) var(--space-3);
+  font-weight: var(--font-weight-medium);
+  max-width: 220px;
+  box-shadow: var(--shadow-md);
+}
+
+.tooltip-arrow {
+  &::before {
+    border-top-color: var(--color-surface-dark);
+  }
+}
+
+.bs-tooltip-bottom .tooltip-arrow::before {
+  border-bottom-color: var(--color-surface-dark);
+}
+
+.bs-tooltip-start .tooltip-arrow::before {
+  border-left-color: var(--color-surface-dark);
+}
+
+.bs-tooltip-end .tooltip-arrow::before {
+  border-right-color: var(--color-surface-dark);
+}

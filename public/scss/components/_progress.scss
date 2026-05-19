@@ -1,0 +1,54 @@
+// ============================================
+// PROGRESS — Bootstrap Override
+// ============================================
+
+.progress {
+  height: 0.5rem;
+  border-radius: var(--radius-pill);
+  background-color: var(--color-surface-light);
+  overflow: hidden;
+}
+
+.progress-bar {
+  background-color: var(--color-brand);
+  border-radius: var(--radius-pill);
+  transition: width 0.4s ease;
+}
+
+// ── Sizes ──
+.progress-sm {
+  height: 0.25rem;
+}
+
+.progress-lg {
+  height: 0.75rem;
+}
+
+// ── Checkout steps (e-commerce specific) ──
+.progress-steps {
+  height: 4px;
+  background-color: var(--color-border-light);
+  border-radius: var(--radius-pill);
+  margin-bottom: var(--space-6);
+
+  .progress-bar {
+    background: linear-gradient(90deg, var(--color-brand), var(--color-brand-hover));
+  }
+}
+
+// ── Variant colors ──
+.progress-bar.bg-success {
+  background-color: $success;
+}
+
+.progress-bar.bg-warning {
+  background-color: $warning;
+}
+
+.progress-bar.bg-danger {
+  background-color: $danger;
+}
+
+.progress-bar.bg-info {
+  background-color: $info;
+}
