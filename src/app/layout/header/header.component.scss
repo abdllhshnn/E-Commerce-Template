@@ -183,6 +183,16 @@
     min-width: 200px;
     box-shadow: var(--shadow-dropdown);
     z-index: 100;
+
+    // Invisible bridge: covers the 4px gap between trigger and dropdown
+    &::before {
+      content: '';
+      position: absolute;
+      top: -8px;
+      left: 0;
+      right: 0;
+      height: 8px;
+    }
   }
 
   &__dropdown-item {
