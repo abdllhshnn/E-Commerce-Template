@@ -1,7 +1,8 @@
 import { Component, inject, signal } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-import { AuthService } from '../../../core/services/auth.service';
+import { Store } from '@ngxs/store';
+import { Login } from '../../../core/state/actions/auth.actions';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +12,7 @@ import { AuthService } from '../../../core/services/auth.service';
 })
 export class LoginComponent {
   private fb = inject(FormBuilder);
-  private auth = inject(AuthService);
+  private store = inject(Store);
   private router = inject(Router);
 
   form = this.fb.nonNullable.group({
@@ -37,13 +38,19 @@ export class LoginComponent {
     this.loading.set(true);
     this.error.set('');
 
-    this.auth.login(this.form.getRawValue()).subscribe((result) => {
-      this.loading.set(false);
-      if (result.success) {
-        this.router.navigateByUrl('/');
-      } else {
-        this.error.set(result.message);
-      }
+    this.store.dispatch(new Login(this.form.getRawValue())).subscribe({
+      next: () => {
+        this.loading.set(false);
+        const authError = this.store.selectSnapshot((state) => state.auth.error);
+        if (authError) {
+          this.error.set(authError);
+        } else {
+          this.router.navigateByUrl('/');
+        }
+      },
+      error: () => {
+        this.loading.set(false);
+      },
     });
   }
 }

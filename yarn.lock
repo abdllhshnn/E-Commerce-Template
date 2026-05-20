@@ -1211,6 +1211,13 @@
   dependencies:
     tslib "^2.3.0"
 
+"@ngxs/store@^21.0.0":
+  version "21.0.0"
+  resolved "https://registry.yarnpkg.com/@ngxs/store/-/store-21.0.0.tgz#0761cdc3d45727260fe8e6dd188060837af592f4"
+  integrity sha512-zp8BgLNhdj8yDiBQpjjLhHaCv7vGdyCYzG2myj6j/A5XcUv71ikuJZfY7Z9rAibBah2mQCaerdQ3fOA9qG70HA==
+  dependencies:
+    tslib "^2.3.0"
+
 "@npmcli/agent@^4.0.0":
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/@npmcli/agent/-/agent-4.0.0.tgz#2bb2b1c0a170940511554a7986ae2a8be9fedcce"

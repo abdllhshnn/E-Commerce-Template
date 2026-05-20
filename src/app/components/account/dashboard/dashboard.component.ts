@@ -2,8 +2,10 @@ import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { DatePipe, DecimalPipe } from '@angular/common';
-import { AuthService } from '../../../core/services/auth.service';
-import { OrderService } from '../../../core/services/order.service';
+import { Store } from '@ngxs/store';
+import { AuthState } from '../../../core/state/auth.state';
+import { OrderState } from '../../../core/state/order.state';
+import { LoadRecentOrders } from '../../../core/state/actions/order.actions';
 
 @Component({
   selector: 'app-dashboard',
@@ -12,16 +14,19 @@ import { OrderService } from '../../../core/services/order.service';
   styleUrl: './dashboard.component.scss',
 })
 export class DashboardComponent {
-  private authService = inject(AuthService);
-  private orderService = inject(OrderService);
+  private store = inject(Store);
 
-  authState = toSignal(this.authService.state$, {
-    initialValue: this.authService.snapshot,
+  authState = toSignal(this.store.select(AuthState.authInfo), {
+    initialValue: { user: null, isAuthenticated: false },
   });
 
-  recentOrders = toSignal(this.orderService.getRecentOrders(3), {
+  recentOrders = toSignal(this.store.select(OrderState.recentOrders), {
     initialValue: [],
   });
+
+  constructor() {
+    this.store.dispatch(new LoadRecentOrders(3));
+  }
 
   get firstName(): string {
     return this.authState().user?.firstName ?? '';

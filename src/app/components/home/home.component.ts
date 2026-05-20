@@ -1,6 +1,8 @@
 import { Component, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { ProductService } from '../../core/services/product.service';
+import { Store } from '@ngxs/store';
+import { ProductState } from '../../core/state/product.state';
+import { LoadPopularProducts, LoadNewProducts } from '../../core/state/actions/product.actions';
 import { HomeBanner } from '../../shared/components/home-banner/home-banner';
 import { CategoryGrid } from '../../shared/components/category-grid/category-grid';
 import { ProductSection } from '../../shared/components/product-section/product-section';
@@ -14,8 +16,13 @@ import { BrandLogos } from '../../shared/components/brand-logos/brand-logos';
   styleUrl: './home.component.scss',
 })
 export class HomeComponent {
-  private productService = inject(ProductService);
+  private store = inject(Store);
 
-  popularProducts = toSignal(this.productService.getPopularProducts(8), { initialValue: [] });
-  newProducts = toSignal(this.productService.getNewProducts(4), { initialValue: [] });
+  popularProducts = toSignal(this.store.select(ProductState.popularProducts), { initialValue: [] });
+  newProducts = toSignal(this.store.select(ProductState.newProducts), { initialValue: [] });
+
+  constructor() {
+    this.store.dispatch(new LoadPopularProducts(8));
+    this.store.dispatch(new LoadNewProducts(4));
+  }
 }

@@ -1,7 +1,9 @@
 import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { ProductService } from '../../../core/services/product.service';
+import { Store } from '@ngxs/store';
+import { ProductState } from '../../../core/state/product.state';
+import { LoadBrands } from '../../../core/state/actions/product.actions';
 
 @Component({
   selector: 'app-brand-logos',
@@ -10,7 +12,11 @@ import { ProductService } from '../../../core/services/product.service';
   styleUrl: './brand-logos.scss',
 })
 export class BrandLogos {
-  private productService = inject(ProductService);
+  private store = inject(Store);
 
-  brands = toSignal(this.productService.getBrands(), { initialValue: [] });
+  brands = toSignal(this.store.select(ProductState.brands), { initialValue: [] });
+
+  constructor() {
+    this.store.dispatch(new LoadBrands());
+  }
 }

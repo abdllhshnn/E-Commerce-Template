@@ -1,7 +1,8 @@
 import { Component, inject, signal } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { AuthService } from '../../../core/services/auth.service';
+import { Store } from '@ngxs/store';
+import { ForgotPassword } from '../../../core/state/actions/auth.actions';
 
 @Component({
   selector: 'app-forgot-password',
@@ -11,7 +12,7 @@ import { AuthService } from '../../../core/services/auth.service';
 })
 export class ForgotPasswordComponent {
   private fb = inject(FormBuilder);
-  private auth = inject(AuthService);
+  private store = inject(Store);
 
   form = this.fb.nonNullable.group({
     email: ['', [Validators.required, Validators.email]],
@@ -30,13 +31,19 @@ export class ForgotPasswordComponent {
     this.loading.set(true);
     this.error.set('');
 
-    this.auth.forgotPassword(this.form.getRawValue()).subscribe((result) => {
-      this.loading.set(false);
-      if (result.success) {
-        this.sent.set(true);
-      } else {
-        this.error.set(result.message);
-      }
+    this.store.dispatch(new ForgotPassword(this.form.getRawValue())).subscribe({
+      next: () => {
+        this.loading.set(false);
+        const authError = this.store.selectSnapshot((state) => state.auth.error);
+        if (authError) {
+          this.error.set(authError);
+        } else {
+          this.sent.set(true);
+        }
+      },
+      error: () => {
+        this.loading.set(false);
+      },
     });
   }
 }

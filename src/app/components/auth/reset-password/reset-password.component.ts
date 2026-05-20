@@ -7,7 +7,8 @@ import {
   ValidationErrors,
 } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { AuthService } from '../../../core/services/auth.service';
+import { Store } from '@ngxs/store';
+import { ResetPassword } from '../../../core/state/actions/auth.actions';
 
 @Component({
   selector: 'app-reset-password',
@@ -17,7 +18,7 @@ import { AuthService } from '../../../core/services/auth.service';
 })
 export class ResetPasswordComponent implements OnInit {
   private fb = inject(FormBuilder);
-  private auth = inject(AuthService);
+  private store = inject(Store);
   private router = inject(Router);
   private route = inject(ActivatedRoute);
 
@@ -62,18 +63,26 @@ export class ResetPasswordComponent implements OnInit {
     this.loading.set(true);
     this.error.set('');
 
-    this.auth
-      .resetPassword({
-        token: this.token(),
-        password: this.form.getRawValue().password,
-      })
-      .subscribe((result) => {
-        this.loading.set(false);
-        if (result.success) {
-          this.success.set(true);
-        } else {
-          this.error.set(result.message);
-        }
+    this.store
+      .dispatch(
+        new ResetPassword({
+          token: this.token(),
+          password: this.form.getRawValue().password,
+        }),
+      )
+      .subscribe({
+        next: () => {
+          this.loading.set(false);
+          const authError = this.store.selectSnapshot((state) => state.auth.error);
+          if (authError) {
+            this.error.set(authError);
+          } else {
+            this.success.set(true);
+          }
+        },
+        error: () => {
+          this.loading.set(false);
+        },
       });
   }
 

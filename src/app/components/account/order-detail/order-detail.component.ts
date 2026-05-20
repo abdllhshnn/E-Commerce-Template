@@ -1,11 +1,10 @@
-import { Component, inject, input } from '@angular/core';
+import { Component, inject, input, effect } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { DecimalPipe } from '@angular/common';
-import { switchMap } from 'rxjs/operators';
-import { of } from 'rxjs';
-import { toObservable } from '@angular/core/rxjs-interop';
-import { OrderService } from '../../../core/services/order.service';
+import { Store } from '@ngxs/store';
+import { OrderState } from '../../../core/state/order.state';
+import { LoadOrderById } from '../../../core/state/actions/order.actions';
 
 @Component({
   selector: 'app-order-detail',
@@ -14,15 +13,20 @@ import { OrderService } from '../../../core/services/order.service';
   styleUrl: './order-detail.component.scss',
 })
 export class OrderDetailComponent {
-  private orderService = inject(OrderService);
+  private store = inject(Store);
 
   id = input.required<string>();
 
-  order = toSignal(
-    toObservable(this.id).pipe(
-      switchMap((id) => (id ? this.orderService.getOrderById(id) : of(undefined))),
-    ),
-  );
+  order = toSignal(this.store.select(OrderState.selectedOrder));
+
+  constructor() {
+    effect(() => {
+      const id = this.id();
+      if (id) {
+        this.store.dispatch(new LoadOrderById(id));
+      }
+    });
+  }
 
   getStatusLabel(status: string): string {
     const map: Record<string, string> = {

@@ -1,8 +1,10 @@
 import { Component, inject, signal } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { AuthService } from '../../../core/services/auth.service';
-import { ProfileService } from '../../../core/services/profile.service';
+import { Store } from '@ngxs/store';
+import { AuthState } from '../../../core/state/auth.state';
+import { ProfileState } from '../../../core/state/profile.state';
+import { UpdateProfile, ChangePassword } from '../../../core/state/actions/profile.actions';
 
 function passwordMatchValidator(control: AbstractControl): ValidationErrors | null {
   const password = control.get('newPassword');
@@ -22,11 +24,10 @@ function passwordMatchValidator(control: AbstractControl): ValidationErrors | nu
 })
 export class SettingsComponent {
   private fb = inject(FormBuilder);
-  private authService = inject(AuthService);
-  private profileService = inject(ProfileService);
+  private store = inject(Store);
 
-  authState = toSignal(this.authService.state$, {
-    initialValue: this.authService.snapshot,
+  authState = toSignal(this.store.select(AuthState.authInfo), {
+    initialValue: { user: null, isAuthenticated: false },
   });
 
   // Profile form
@@ -37,8 +38,8 @@ export class SettingsComponent {
     phone: ['', [Validators.required, Validators.pattern(/^05\d{9}$/)]],
   });
 
-  profileLoading = signal(false);
-  profileMessage = signal<{ type: 'success' | 'error'; text: string } | null>(null);
+  profileLoading = toSignal(this.store.select(ProfileState.profileLoading), { initialValue: false });
+  profileMessage = toSignal(this.store.select(ProfileState.profileMessage), { initialValue: null });
 
   // Password form
   passwordForm = this.fb.nonNullable.group(
@@ -50,8 +51,8 @@ export class SettingsComponent {
     { validators: passwordMatchValidator },
   );
 
-  passwordLoading = signal(false);
-  passwordMessage = signal<{ type: 'success' | 'error'; text: string } | null>(null);
+  passwordLoading = toSignal(this.store.select(ProfileState.passwordLoading), { initialValue: false });
+  passwordMessage = toSignal(this.store.select(ProfileState.passwordMessage), { initialValue: null });
   showCurrentPassword = signal(false);
   showNewPassword = signal(false);
   showConfirmPassword = signal(false);
@@ -74,16 +75,7 @@ export class SettingsComponent {
       return;
     }
 
-    this.profileLoading.set(true);
-    this.profileMessage.set(null);
-
-    this.profileService.updateProfile(this.profileForm.getRawValue()).subscribe((res) => {
-      this.profileLoading.set(false);
-      this.profileMessage.set({
-        type: res.success ? 'success' : 'error',
-        text: res.message,
-      });
-    });
+    this.store.dispatch(new UpdateProfile(this.profileForm.getRawValue()));
   }
 
   onPasswordSubmit(): void {
@@ -92,17 +84,10 @@ export class SettingsComponent {
       return;
     }
 
-    this.passwordLoading.set(true);
-    this.passwordMessage.set(null);
-
     const { currentPassword, newPassword } = this.passwordForm.getRawValue();
-    this.profileService.changePassword({ currentPassword, newPassword }).subscribe((res) => {
-      this.passwordLoading.set(false);
-      this.passwordMessage.set({
-        type: res.success ? 'success' : 'error',
-        text: res.message,
-      });
-      if (res.success) {
+    this.store.dispatch(new ChangePassword({ currentPassword, newPassword })).subscribe(() => {
+      const msg = this.store.selectSnapshot(ProfileState.passwordMessage);
+      if (msg?.type === 'success') {
         this.passwordForm.reset();
       }
     });

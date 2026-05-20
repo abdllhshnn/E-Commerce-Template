@@ -1,7 +1,9 @@
 import { Component, inject, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
-import { AddressService } from '../../../core/services/address.service';
+import { Store } from '@ngxs/store';
+import { AddressState } from '../../../core/state/address.state';
+import { LoadAddresses, AddAddress, UpdateAddress, DeleteAddress } from '../../../core/state/actions/address.actions';
 import { Address } from '../../../core/models/address.model';
 
 @Component({
@@ -11,10 +13,10 @@ import { Address } from '../../../core/models/address.model';
   styleUrl: './addresses.component.scss',
 })
 export class AddressesComponent {
-  private addressService = inject(AddressService);
+  private store = inject(Store);
   private fb = inject(FormBuilder);
 
-  addresses = toSignal(this.addressService.getAddresses(), {
+  addresses = toSignal(this.store.select(AddressState.addresses), {
     initialValue: [],
   });
 
@@ -31,6 +33,10 @@ export class AddressesComponent {
     zipCode: ['', Validators.required],
     isDefault: [false],
   });
+
+  constructor() {
+    this.store.dispatch(new LoadAddresses());
+  }
 
   openAddForm(): void {
     this.editingId.set(null);
@@ -60,15 +66,15 @@ export class AddressesComponent {
     const id = this.editingId();
 
     if (id !== null) {
-      this.addressService.updateAddress({ ...data, id });
+      this.store.dispatch(new UpdateAddress({ ...data, id }));
     } else {
-      this.addressService.addAddress(data);
+      this.store.dispatch(new AddAddress(data));
     }
 
     this.cancelForm();
   }
 
   deleteAddress(id: number): void {
-    this.addressService.deleteAddress(id);
+    this.store.dispatch(new DeleteAddress(id));
   }
 }

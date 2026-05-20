@@ -2,7 +2,9 @@ import { Component, inject, signal, computed } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { DatePipe, DecimalPipe } from '@angular/common';
-import { OrderService } from '../../../core/services/order.service';
+import { Store } from '@ngxs/store';
+import { OrderState } from '../../../core/state/order.state';
+import { LoadOrders } from '../../../core/state/actions/order.actions';
 import { OrderStatus } from '../../../core/models/order.model';
 
 @Component({
@@ -12,10 +14,14 @@ import { OrderStatus } from '../../../core/models/order.model';
   styleUrl: './orders.component.scss',
 })
 export class OrdersComponent {
-  private orderService = inject(OrderService);
+  private store = inject(Store);
 
-  orders = toSignal(this.orderService.getOrders(), { initialValue: [] });
+  orders = toSignal(this.store.select(OrderState.orders), { initialValue: [] });
   activeFilter = signal<OrderStatus | 'all'>('all');
+
+  constructor() {
+    this.store.dispatch(new LoadOrders());
+  }
 
   filters: { label: string; value: OrderStatus | 'all' }[] = [
     { label: 'Tümü', value: 'all' },

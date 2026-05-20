@@ -1,7 +1,9 @@
 import { Component, inject } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { Store } from '@ngxs/store';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { AuthService } from '../../../core/services/auth.service';
+import { AuthState } from '../../../core/state/auth.state';
+import { Logout } from '../../../core/state/actions/auth.actions';
 
 @Component({
   selector: 'app-account-layout',
@@ -10,11 +12,11 @@ import { AuthService } from '../../../core/services/auth.service';
   styleUrl: './account-layout.component.scss',
 })
 export class AccountLayoutComponent {
-  private authService = inject(AuthService);
+  private store = inject(Store);
   private router = inject(Router);
 
-  authState = toSignal(this.authService.state$, {
-    initialValue: this.authService.snapshot,
+  authState = toSignal(this.store.select(AuthState.authInfo), {
+    initialValue: { user: null, isAuthenticated: false },
   });
 
   get initials(): string {
@@ -36,7 +38,7 @@ export class AccountLayoutComponent {
   }
 
   logout(): void {
-    this.authService.logout();
+    this.store.dispatch(new Logout());
     this.router.navigate(['/']);
   }
 }

@@ -1,8 +1,11 @@
 import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { ProductService } from '../../core/services/product.service';
-import { AuthService } from '../../core/services/auth.service';
+import { Store } from '@ngxs/store';
+import { ProductState } from '../../core/state/product.state';
+import { AuthState } from '../../core/state/auth.state';
+import { LoadCategories } from '../../core/state/actions/product.actions';
+import { Logout } from '../../core/state/actions/auth.actions';
 
 @Component({
   selector: 'app-header',
@@ -11,19 +14,24 @@ import { AuthService } from '../../core/services/auth.service';
   styleUrl: './header.component.scss',
 })
 export class HeaderComponent {
-  private productService = inject(ProductService);
-  private authService = inject(AuthService);
+  private store = inject(Store);
 
-  categories = toSignal(this.productService.getCategories(), { initialValue: [] });
-  authState = toSignal(this.authService.state$, { initialValue: this.authService.snapshot });
+  categories = toSignal(this.store.select(ProductState.categories), { initialValue: [] });
+  authState = toSignal(this.store.select(AuthState.authInfo), {
+    initialValue: { user: null, isAuthenticated: false },
+  });
 
   cartCount = 3;
   searchOpen = false;
   catOpen = false;
   userMenuOpen = false;
 
+  constructor() {
+    this.store.dispatch(new LoadCategories());
+  }
+
   logout(): void {
-    this.authService.logout();
+    this.store.dispatch(new Logout());
     this.userMenuOpen = false;
   }
 }

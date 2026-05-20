@@ -1,7 +1,9 @@
 import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { ProductService } from '../../../core/services/product.service';
+import { Store } from '@ngxs/store';
+import { ProductState } from '../../../core/state/product.state';
+import { LoadCategories } from '../../../core/state/actions/product.actions';
 
 @Component({
   selector: 'app-category-grid',
@@ -10,7 +12,11 @@ import { ProductService } from '../../../core/services/product.service';
   styleUrl: './category-grid.scss',
 })
 export class CategoryGrid {
-  private productService = inject(ProductService);
+  private store = inject(Store);
 
-  categories = toSignal(this.productService.getCategories(), { initialValue: [] });
+  categories = toSignal(this.store.select(ProductState.categories), { initialValue: [] });
+
+  constructor() {
+    this.store.dispatch(new LoadCategories());
+  }
 }
